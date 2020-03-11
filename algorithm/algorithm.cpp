@@ -2,10 +2,34 @@
 //
 
 #include <iostream>
+#include <vector>
+using namespace std;
+
+void BubbleSort(vector<int>& v)
+{   
+    bool flag = true;
+    for (int i = 0; i < v.size() && flag ; i++)
+    {
+        flag = false;
+        for (int j = 0; j < v.size() -1 ; j++)
+        {
+            
+            if (v[j] > v[j + 1])
+            {
+                swap(v[j], v[j + 1]);
+                flag = true;
+            }
+        }
+    }
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    vector<int> case1 = { 0,34,-888,5,7,-23423,678,45,278,2335,934,5,8456,234,6,8456,-55 };
+    BubbleSort(case1);
+    for (auto cc : case1)
+        cout << cc << " ";
+    //std::cout << "Hello World!\n";
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

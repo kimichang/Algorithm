@@ -1,0 +1,4 @@
+﻿  algorithm.cpp
+C:\Users\kimichang\source\repos\algorithm\algorithm\algorithm.cpp(11,23): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\kimichang\source\repos\algorithm\algorithm\algorithm.cpp(14,27): warning C4018: “<”: 有符号/无符号不匹配
+  algorithm.vcxproj -> C:\Users\kimichang\source\repos\algorithm\algorithm\Debug\algorithm.exe
