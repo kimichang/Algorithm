@@ -8,10 +8,10 @@ using namespace std;
 void BubbleSort(vector<int>& v)
 {   
     bool flag = true;
-    for (int i = 0; i < v.size() && flag ; i++)
+    for (int i = 0; i < v.size() && flag ; i++) // remove flag
     {
         flag = false;
-        for (int j = 0; j < v.size() -1 ; j++)
+        for (int j = 0; j < v.size() -1 -i ; j++) // remove -i
         {
             
             if (v[j] > v[j + 1])
@@ -23,10 +23,40 @@ void BubbleSort(vector<int>& v)
     }
 }
 
+int Partition(vector<int>& v, int low, int high)
+{
+    int x = v[high];
+    int i = low - 1;
+    for (int j = low; j <= high -1; j++)
+    {
+        if (v[j] <= x)
+        {
+            i++;
+            swap(v[j], v[i]);
+
+        }
+        
+    }
+    swap(v[i + 1], v[high]);
+    return i + 1;
+}
+
+void QuickSort(vector<int>& v, int l, int h)
+{
+    if (l < h)
+    {
+        int pt = Partition(v,l,h);
+        QuickSort(v, l, pt - 1);
+        QuickSort(v, pt + 1, h);
+    }
+}
+
+
 int main()
 {
     vector<int> case1 = { 0,34,-888,5,7,-23423,678,45,278,2335,934,5,8456,234,6,8456,-55 };
-    BubbleSort(case1);
+//    BubbleSort(case1);
+    QuickSort(case1, 0, case1.size() - 1);
     for (auto cc : case1)
         cout << cc << " ";
     //std::cout << "Hello World!\n";
