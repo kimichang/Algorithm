@@ -4,20 +4,21 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+int count =0;
 void BubbleSort(vector<int>& v)
 {   
     bool flag = true;
     for (int i = 0; i < v.size() && flag ; i++) // remove flag
     {
         flag = false;
-        for (int j = 0; j < v.size() -1 -i ; j++) // remove -i
+        for (int j = 0; j < v.size()-1-i  ; j++) // remove -i
         {
-            
+//            count++;
             if (v[j] > v[j + 1])
             {
                 swap(v[j], v[j + 1]);
                 flag = true;
+		count++;
             }
         }
     }
@@ -54,11 +55,12 @@ void QuickSort(vector<int>& v, int l, int h)
 
 int main()
 {
-    vector<int> case1 = { 0,34,-888,5,7,-23423,678,45,278,2335,934,5,8456,234,6,8456,-55 };
-//    BubbleSort(case1);
-    QuickSort(case1, 0, case1.size() - 1);
+    vector<int> case1 = { 0,34,-888,5,7,-2,345,14,2,5,34,5,354,345345,63,4536,35345,73543,5235,264367354,254,745,764563,74574,643,6437,4363,4637,36346,35736,2346,435,74574,74375673,63736,3637,37346,37,3463,75,743,463,7363,63-345,35436,363,-63,6346,-36,636,36363,6363,453534,533423,678,45,278,2335,934,5,8456,234,6,8456,-55,-56,-2423,-242432,-2342424,-444234,-2342346,-5675857,-67868,6786,-686786,-22342435,-546797,-4334500,-543,-3453790,-500,-342,-6,-45,-43,-556,-75,-6,-0,-63,-100 };
+    BubbleSort(case1);
+//    QuickSort(case1, 0, case1.size() - 1);
     for (auto cc : case1)
         cout << cc << " ";
+    cout << "count is " << count ;
     //std::cout << "Hello World!\n";
 }
 
