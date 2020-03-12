@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <malloc.h>
 using namespace std;
 int c =0;
 void BubbleSort(vector<int>& v)
@@ -152,7 +153,8 @@ public:
 
     void BuildHeap(int array[], int size)
     {
-        c = _msize(array)/sizeof(array[0]);//get length of the array on windows --- // malloc_usable_size(array)/sizeof(array[0]); on linux
+//        c = _msize(array)/sizeof(array[0]);//get length of the array on windows --- // malloc_usable_size(array)/sizeof(array[0]); on linux
+	c = malloc_usable_size(array)/sizeof(array[0]);
         int i, tmp, index;
         for (i = size / 2; i >= 1; i--)
         {
