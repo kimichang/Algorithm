@@ -8,17 +8,24 @@ template<typename T> class BTNode
 {
 private:
 	T data;
-	T* lchild;
-	T* rchild;
-	T* parent;
+	BTNode<T>* lchild;
+	BTNode<T>* rchild;
+	BTNode<T>* parent;
 public:
-	BTNode(T value,T* lc,T* rc,T* p):data(value),lchild(lc),rchild(rc),parent(p){}
+	BTNode(T value,BTNode<T>* lc = nullptr,BTNode<T>* rc=nullptr,BTNode<T>* p=nullptr):data(value),lchild(lc),rchild(rc),parent(p){}
+	void setParent(BTNode<T>* node){this->parent = node;}
+	void setLChild(BTNode<T>* child){this->lchild = child;}
+	void setRChild(BTNode<T>* child){this->rchild = child;}
+	T getValue(){ return this->data;}
+	BTNode<T>* getParent(){return this->parent == nullptr ? nullptr:this->parent;}
+	BTNode<T>* getLChild(){return this->lchild == nullptr ? nullptr:this->lchild;}
+	BTNode<T>* getRChild(){return this->rchild == nullptr ? nullptr:this->rchild;}
 //	~BTNode(){ data = 0; lchild = rchild = parent = nullptr;}
 };
 
 template<typename T> bool isRoot(BTNode<T>* node)
 {
-	return node->parent == nullptr ? true:false;
+	return getParent(node) == nullptr ? true:false;
 }
 
 
@@ -30,30 +37,54 @@ template<typename T> int  getMiddle(vector<T> input,int l , int h)
 
 template<typename T> void connect(BTNode<T>* root,BTNode<T>* child)
 {
-	if(root->value >= child->value) //lchild
+	if(child == nullptr || root == nullptr)
+		return ;
+	if(root->getValue() >= child->getValue()) //lchild
 	{	
-		root->lchild = child;
-		child->parent = root;
+		root->setLChild(child);
+		child->setParent(root);
 	}
 	else // rchild
 	{
-		root->rchild = child;
-		child->parent = root;
+		root->setRChild(child);
+		child->setParent(root);
 	}
 }
 		
-template<typename T> void construct(const vector<T>* input,BTNode* root,int l,int h)
+template<typename T> void construct(const vector<T>* input,BTNode<T>* root,int l,int h)
 {
-	
+	int mid = (l + h) / 2;
+	BTNode<T>* tmp = new BTNode<T>(input[mid],nullptr,nullptr,nullptr);
+	connect(root,tmp);
 }
 
-template<typename T> BTNode<T>* buildAVTree(const vector<T>* input)
+template<typename T> void buildAVTree(const vector<T>& input,int l,int h,BTNode<T>* node)
 {
-		int mid = getMiddle(input,0,input.size()-1);
-		BTNode* currentNode = new BTNode(input[mid],nullptr,nullptr,nullptr);
-		BTNode* iRoot = currentNode;
-		int midl,midr;
-		while(midl >= 0 && midr <= input.size()-1)
+//	if(node == nullptr)
+//		node = new BTNode<T>(input[(input.begin()+input.end())/2],nullptr,nullptr,nullptr);
+
+	if( l > h)
+		return;
+	if( l == h)
+	{
+		BTNode<T>* currentNode = new BTNode<T>(input[l]);
+		connect(node,currentNode);
+		return;
+	}
+	int mid = (l + h) /2;
+	BTNode<T>* currentNode = new BTNode<T>(input[mid],nullptr,nullptr,nullptr);
+
+	connect(node,currentNode);
+	while(l < h)
+	{
+		buildAVTree(input,l,mid-1,currentNode);
+		buildAVTree(input,mid+1,h,currentNode);
+	}
+	
+
+//		BTNode* iRoot = currentNode;
+//		int midl,midr;
+/*		while(midl >= 0 && midr <= input.size()-1)
 		{
 			 midl = getMiddle(input,l,mid-1);
 			 midr = getMiddle(input,mid+1,h);
@@ -67,13 +98,29 @@ template<typename T> BTNode<T>* buildAVTree(const vector<T>* input)
 			midr = getMiddle(input,midr,input.size()-1);
 
 		}
-	return root;
+*/
+/*
+	while(l <= h && l>=0 && h <= input.size()-1)
+	{
+		int mid = (l + h)/2;
+		construct(input,iRoot,l,mid);
+		construct(input,iRoot,mid+1,h);
+		
+	}
+
+	return currentNode;
+*/
+	return ;
 }
 
 int main()
 {
 	vector<int> input = { 2,46,2,4,62,3456,234,74,854,846,-45,-3657,743};
 	sort(input.begin(),input.end());
+	int size = input.size() -1;
+//	BTNode<int> root (NULL,nullptr,nullptr,nullptr);
+	BTNode<int>* root = nullptr;
+	buildAVTree(input,0,size,root);
 	for(auto cc:input)
 		std::cout << cc << " " ;	
 	return 0;
