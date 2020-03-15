@@ -110,7 +110,7 @@ template<typename T> void buildAVTree(const vector<T>& input,int l,int h,BTNode<
 
 	return currentNode;
 */
-	return ;
+//	return ;
 }
 
 int main()
