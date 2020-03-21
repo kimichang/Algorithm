@@ -58,11 +58,11 @@ template<typename T> void construct(const vector<T>* input,BTNode<T>* root,int l
 	connect(root,tmp);
 }
 
-template<typename T> void buildAVTree(const vector<T>& input,int l,int h,BTNode<T>* node)
+template<typename T> BTNode<T>* buildAVTree(const vector<T>& input,int l,int h)
 {
 //	if(node == nullptr)
 //		node = new BTNode<T>(input[(input.begin()+input.end())/2],nullptr,nullptr,nullptr);
-
+/*
 	if( l > h)
 		return;
 	if( l == h)
@@ -81,7 +81,7 @@ template<typename T> void buildAVTree(const vector<T>& input,int l,int h,BTNode<
 		buildAVTree(input,mid+1,h,currentNode);
 	}
 	
-
+*/
 //		BTNode* iRoot = currentNode;
 //		int midl,midr;
 /*		while(midl >= 0 && midr <= input.size()-1)
@@ -111,6 +111,14 @@ template<typename T> void buildAVTree(const vector<T>& input,int l,int h,BTNode<
 	return currentNode;
 */
 //	return ;
+
+	if(l > h) return NULL;
+	int mid = l + (h - l)/2;
+	BTNode<T>* root = new BTNode<T>(input[mid]);
+
+	root->setLChild(buildAVTree(input,l,mid-1));
+	root->setRChild(buildAVTree(input,mid+1,h));
+	return root;
 }
 
 int main()
@@ -119,8 +127,8 @@ int main()
 	sort(input.begin(),input.end());
 	int size = input.size() -1;
 //	BTNode<int> root (NULL,nullptr,nullptr,nullptr);
-	BTNode<int>* root = nullptr;
-	buildAVTree(input,0,size,root);
+	BTNode<int>* root = buildAVTree(input,0,size);
+	
 	for(auto cc:input)
 		std::cout << cc << " " ;	
 	return 0;
