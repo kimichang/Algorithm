@@ -27,19 +27,26 @@ string longestCommonPrefix(vector<string>& strs)
 	string model = findMinLength(strs);
 	int i = -1;
 
-	for(;i <= model.length();i++)
+	for(;i+1 <= model.length() -1;i++)
 	{
-		for(auto str: strs)
+/*		for(auto str: strs)
 		{
 			if(str[i+1] != model[i+1])
 				break;
 		}
+*/
+		for(int j = 0;j < strs.size();j++)
+			if(strs[j].at(i+1) != model[i+1] && i != -1)
+				return model.substr(0,i+1);
 	}
-	return model.substr(0,i);
+//	if(i != -1)
+//		return model.substr(0,i+1);
+
+//	return "";
 }
 int main()
 {
-	vector<string> input = {"flower","flow","flight"};
+	vector<string> input = {"flower","flow","floght"};
 	string prefix = longestCommonPrefix(input);
 	cout << prefix << endl;
 }
