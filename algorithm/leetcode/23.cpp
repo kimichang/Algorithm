@@ -26,6 +26,11 @@ int findMinHead(vector<ListNode*>& lists)
 
 ListNode* mergeKLists(vector<ListNode*>& lists)
 {
+	ListNode* temp[lists.size()];
+	for(int i = 0;i< lists.size();i++)
+	{
+		temp[i] = lists[i];
+	}
 	ListNode* result = NULL;
 	ListNode* tmp = NULL;
 	int index;
