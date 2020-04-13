@@ -37,7 +37,10 @@ ListNode* mergeKLists(vector<ListNode*>& lists)
 	while(lists[index = findMinHead(lists)])
 	{
 		if(result == NULL)
+		{
 			result = tmp = lists[index];
+			lists[index] = lists[index]->next;
+		}
 		else
 		{
 			tmp->next = lists[index];
