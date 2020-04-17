@@ -90,17 +90,17 @@ int main()
 	ListNode l1(1);
 	ListNode l2(2);
 	ListNode l3(4);
-	ListNode l4(1);
+	ListNode l4(2);
 	ListNode l5(3);
 	ListNode l6(4);
 
 	ListNode* a1 = &l1;
-	a1->next = &l2;
-	a1->next->next = &l3;
+//	a1->next = &l2;
+//	a1->next->next = &l3;
 
 	ListNode* a2 = &l4;
-	a2->next = &l5;
-	a2->next->next = &l6;
+//	a2->next = &l5;
+//	a2->next->next = &l6;
 
 	ListNode* rr = mergerTwoLists(a1,a2);
 	while(rr)
