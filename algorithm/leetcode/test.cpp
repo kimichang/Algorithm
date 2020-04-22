@@ -25,9 +25,19 @@ struct s1
            };
            struct s1* next;                //指针占4
 };//这样是8＋4＝12个字节
+struct t
+{
+	uint8_t aa;
+	uint8_t ab;
+	uint16_t ac;
+	uint32_t ag;
+	char si[0];
+};
+
 int main()
 {
 	std::cout << sizeof(s1) << std::endl;
+	std::cout << sizeof(t) << std::endl;
 #ifdef __cplusplus
 	std::cout << "c++";
 	#else
