@@ -33,6 +33,31 @@ int strStr(string haystack,string needle)
 	return index;
 }
 
+int strStr(string haystack,string needle)
+{
+	if(needle.size() == 0)
+		return 0;
+	
+	if((int)needle.size() > (int)haystack.size())
+		return -1;
+	
+	int temp = 0,j = 0;
+	for(int i = temp;i < haystack.size();i++)
+	{
+		if(haystack[i] == needle[j])
+			j++;
+		else
+		{
+			j = 0;
+			i = temp++;
+		}
+
+		if(j == needle.size())
+			return temp;
+	}
+	return -1;
+}
+
 int main(int argc,char** argv)
 {
 	string hay = argv[1];
