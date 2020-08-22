@@ -9,7 +9,7 @@ int threeSumClosest(vector<int>& nums,int target)
 {
 	int n = nums.size();
 	int sum = 0;
-	int res = 0,diff = 0,k = n - 1;
+	int res = 0,diff = INT_MAX,k = n - 1;
 	if(	n > 2 )
 	{
 		sort(nums.begin(),nums.end());
@@ -18,13 +18,13 @@ int threeSumClosest(vector<int>& nums,int target)
 			for(int j = i + 1;j < k;)
 			{
 				sum = nums[i] + nums[j] + nums[k];
-				if(abs(sum - target) < INT_MAX)
+				if(abs(sum - target) < diff)
 				{
 					res = sum;
 					diff = abs(sum - target);
 				}
 				if(sum == target)
-					return res;
+					return sum;
 				else if(sum > target)
 					k--;
 				else
@@ -38,8 +38,8 @@ int threeSumClosest(vector<int>& nums,int target)
 
 int main()
 {
-	vector<int> input = { 0,2,1,-3};
-	int target = 1;
+	vector<int> input = { 1,2,4,8,16,32,64,128};
+	int target = 82;
 
 	int result = threeSumClosest(input,target);
 	cout << result << endl;
