@@ -1,50 +1,39 @@
-#include <vector>
 #include <iostream>
-#include <stack>
+#include <vector>
 #include <algorithm>
+
 using namespace std;
 
 vector<vector<int>> merge(vector<vector<int>>& intervals)
 {
-	vector<vector<int>> result;
-	stack<vector<int>> tmp;
-	for(auto it = intervals.rbegin();it != intervals.rend();it++)
-	{
-		if((*it)[0] <= (*next(it))[1])
-		{
-			(*it)[0] = (*next(it))[0];
-			tmp.push(*it);
-		}
-		else if((*it)[1] <= (*next(it))[1])
-		{
-			continue;
-		}
-		else
-			tmp.push(*it);
+	vector<vector<int>> res;
+	if(intervals.empty())
+		return res;
+	
+	sort(intervals.begin(),intervals.end());
+	res.push_back(intervals[0]);
 
-	}
-	while(!tmp.empty())
+	for(int i = 1;i < intervals.size();++i)
 	{
-		result.push_back(tmp.top());
-		tmp.pop();
+		if(intervals[i][0] <= res.back()[1])
+			res.back()[1] = max(intervals[i][1],res.back()[1]);
+
+		else
+			res.push_back(intervals[i]);
 	}
-	return result;
+	return res;
 }
 
 int main()
 {
-	vector<int> a = {1,3};
-	vector<int> b = {2,6};
-	vector<int> c = {8,10};
-	vector<int> d = {15,18};
-	vector<vector<int>> input = {{1,3},{2,6},{1,10},{15,18}};
-//	vector<vector<int>> re = merge(input);
-	sort(input.begin(),input.end());
-	for( auto I : input)
+	vector<vector<int>> input = {{1,3},{2,6},{8,10},{15,18}};
+	vector<vector<int>> result;
+	result = merge(input);
+	for(auto v:result)
 	{
-		for(auto ii : I)
-			cout << ii << " " ;
-		cout << "\n";
+		for(auto el : v)
+			cout << el << " ";
+
+		cout << endl;
 	}
 }
-
