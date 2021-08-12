@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\algorithm"
+    "\\algorithm",
+    "\\algorithm\\leetcode"
   ],
-  "SelectedNode": "\\algorithm\\algorithm.cpp",
+  "SelectedNode": "\\algorithm\\leetcode\\23.cpp",
   "PreviewInSolutionExplorer": false
 }

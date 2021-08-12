@@ -1,0 +1,2 @@
+C:\Users\kimichang\Source\Repos\Algorithm2\algorithm\Debug\algorithm.exe
+C:\Users\kimichang\Source\Repos\Algorithm2\algorithm\Debug\algorithm.pdb
