@@ -83,6 +83,26 @@ void InsertSort(vector<int>& v)
         v[j + 1] = key;
     }
 }
+
+
+int binary_search(vector<int>& v,int len,int target)
+{
+	int low = 0;
+	int high = len -1;
+	int middle;
+
+	while(low <= high)
+	{
+		middle = (low+high)/2;
+		if(v[middle] == target)
+			return middle;
+		else if(v[middle]> target)
+			high = middle-1;
+		else
+			low = middle + 1;
+	}
+	return -1;
+}
 int maxn = 4096;
 class Heap
 {
@@ -203,7 +223,8 @@ int main()
         cout << endl;
     }
     cout << "count is " << c ;
-    
+	char* ip = "102.10";
+	cout << ip;
 }
 
 
