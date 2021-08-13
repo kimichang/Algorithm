@@ -5,15 +5,16 @@
 #include <vector>
 #include <string>
 #include <malloc.h>
+#include <new>
 using namespace std;
 int c =0;
 void BubbleSort(vector<int>& v)
 {   
     bool flag = true;
-    for (int i = 0; i < v.size() && flag ; i++) // remove flag
+    for (unsigned int i = 0; i < v.size() && flag ; i++) // remove flag
     {
         flag = false;
-        for (int j = 0; j < v.size()-1-i  ; j++) // remove -i
+        for (unsigned int j = 0; j < v.size()-1-i  ; j++) // remove -i
         {
 //            count++;
             if (v[j] > v[j + 1])
@@ -57,10 +58,10 @@ void QuickSort(vector<int>& v, int l, int h)
 void SelectSort(vector<int>& v)
 {
    
-    for (int i = 0; i <= v.size() -1; i++)
+    for (unsigned int i = 0; i <= v.size() -1; i++)
     {   
         int min = i;
-        for (int j = i; j <= v.size() -1; j++)
+        for (unsigned int j = i; j <= v.size() -1; j++)
         {
             if (v[j] < v[min])
                 min = j;
@@ -71,10 +72,10 @@ void SelectSort(vector<int>& v)
 
 void InsertSort(vector<int>& v)
 {
-    for (int i = 1; i < v.size(); i++)
+    for (unsigned int i = 1; i < v.size(); i++)
     {
         int key = v[i];
-        int j = i - 1;
+        unsigned int j = i - 1;
         while (j >= 0 && v[j] > key)
         {
             v[j + 1] = v[j];
@@ -166,6 +167,27 @@ public:
         }
     }
 
+    void* mymemcpy(void* dest, const void* src, size_t count)
+    {
+        char* d;
+        const char* s;
+        if (dest > (src + size) || (dest < src))
+        {
+            d = dest;
+            s = src;
+            while (count--)
+                *d++ = *s++;
+        }
+        else
+        {
+            d = (char*)(dest + count - 1);
+            s = (char*)(src + count - 1);
+            while (count--)
+                *d-- = *s--;
+        }
+        return dest;
+    }
+
     int max() {
         if(empty()) return  -1;
         return array[1];
@@ -173,8 +195,8 @@ public:
 
     void BuildHeap(int array[], int size)
     {
-//        c = _msize(array)/sizeof(array[0]);//get length of the array on windows --- // malloc_usable_size(array)/sizeof(array[0]); on linux
-	c = malloc_usable_size(array)/sizeof(array[0]);
+       c = _msize(array)/sizeof(array[0]);//get length of the array on windows --- // malloc_usable_size(array)/sizeof(array[0]); on linux
+//	c = malloc_usable_size(array)/sizeof(array[0]);
         int i, tmp, index;
         for (i = size / 2; i >= 1; i--)
         {
@@ -192,6 +214,12 @@ public:
     }
 };
 
+void statictest()
+{
+    static int aa = 10;
+    aa++;
+    std::cout << "aa is " << aa << std::endl;
+}
 
 
 int main()
@@ -204,6 +232,10 @@ int main()
     int* case6 = new int[91]{ 0, 34, -888, 5, 7, -2, 345, 14, 2, 5, 34, 5, 354, 345345, 63, 4536, 35345, 73543, 5235, 264367354, 254, 745, 764563, 74574, 643, 6437, 4363, 4637, 36346, 35736, 2346, 435, 74574, 74375673, 63736, 3637, 37346, 37, 3463, 75, 743, 463, 7363, 63 - 345, 35436, 363, -63, 6346, -36, 636, 36363, 6363, 453534, 533423, 678, 45, 278, 2335, 934, 5, 8456, 234, 6, 8456, -55, -56, -2423, -242432, -2342424, -444234, -2342346, -5675857, -67868, 6786, -686786, -22342435, -546797, -4334500, -543, -3453790, -500, -342, -6, -45, -43, -556, -75, -6, -0, -63, -100 };
     int case7[]{ 0, 34, -888, 5, 7, -2, 345, 14, 2, 5, 34, 5, 354, 345345, 63, 4536, 35345, 73543, 5235, 264367354, 254, 745, 764563, 74574, 643, 6437, 4363, 4637, 36346, 35736, 2346, 435, 74574, 74375673, 63736, 3637, 37346, 37, 3463, 75, 743, 463, 7363, 63 - 345, 35436, 363, -63, 6346, -36, 636, 36363, 6363, 453534, 533423, 678, 45, 278, 2335, 934, 5, 8456, 234, 6, 8456, -55, -56, -2423, -242432, -2342424, -444234, -2342346, -5675857, -67868, 6786, -686786, -22342435, -546797, -4334500, -543, -3453790, -500, -342, -6, -45, -43, -556, -75, -6, -0, -63, -100 };
 
+    statictest();
+    statictest();
+
+    
 
     Heap h(case6,91);
 
@@ -211,20 +243,25 @@ int main()
     h.insert(264367);
     cout << h.max() << endl;
     
-    BubbleSort(case2);
+    //BubbleSort(case2);
     QuickSort(case1, 0, case1.size() - 1);
     SelectSort(case3);
     InsertSort(case4);
-    vector<vector<int>> container = { case1,case2,case3,case4,case5 };
+    /*vector<vector<int>> container = { case1,case2,case3,case4,case5 };
     for (auto vv : container)
     {
         for (auto cc : vv)
             cout << cc << " ";
         cout << endl;
     }
+<<<<<<< HEAD
     cout << "count is " << c ;
 	char* ip = "102.10";
 	cout << ip;
+=======
+    cout << "count is " << c ;*/
+    
+>>>>>>> 7ad05e11abdbd5dba802f0ca0c7922eb0881a63c
 }
 
 
